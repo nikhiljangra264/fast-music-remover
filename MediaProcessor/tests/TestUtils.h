@@ -54,6 +54,20 @@ class TestConfigFile {
         return m_filePath;
     }
 
+    template <typename T>
+    T getConfigValue(const std::string& optionName) const {
+        if (!jsonObject.contains(optionName)) {
+            throw std::runtime_error("Config option '" + optionName + "' not found.");
+        }
+
+        try {
+            return jsonObject[optionName].get<T>();
+        } catch (const nlohmann::json::exception& e) {
+            throw std::runtime_error("Failed to retrieve config option '" + optionName +
+                                     "': " + std::string(e.what()));
+        }
+    }
+
    private:
     void writeJsonToFile(const fs::path& path, const nlohmann::json& jsonContent) const;
     bool deleteConfigFile() const;
