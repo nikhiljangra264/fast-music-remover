@@ -10,7 +10,7 @@ namespace fs = std::filesystem;
 namespace MediaProcessor::Tests {
 
 // ClassName_MethodName_StateUnderTest_ExpectedBehavior gtest std naming convention
-TEST(ConfigManagerTest, LoadValidConfigFile_Succeeds) {
+TEST(ConfigManagerTest, ConfigManager_loadConfig_ValidConfigFile_Success) {
     // config file with valid JSON
     auto testConfigFile = TestUtils::TestConfigFile();
     testConfigFile.changeConfigOptions("use_thread_cap", true, "max_threads_if_capped", 1);
@@ -35,7 +35,7 @@ TEST(ConfigManagerTest, LoadValidConfigFile_Succeeds) {
               testConfigFile.getConfigValue<unsigned int>("filter_attenuation_limit"));
 }
 
-TEST(ConfigManagerTest, LoadInvalidConfigFile_ThrowsRuntimeError) {
+TEST(ConfigManagerTest, ConfigManager_loadConfig_InvalidConfigFile_ThrowsRuntimeError) {
     fs::path invalidConfigPath = "invalid_config.json";
 
     // invalid config file for testing
@@ -44,7 +44,7 @@ TEST(ConfigManagerTest, LoadInvalidConfigFile_ThrowsRuntimeError) {
     EXPECT_THROW(configManager.loadConfig(invalidConfigPath), std::runtime_error);
 }
 
-TEST(ConfigManagerTest, LoadInvalidConfigOptions_ThrowsRuntimeError) {
+TEST(ConfigManagerTest, ConfigManager_loadConfig_InvalidConfigOptions_ThrowsRuntimeError) {
     // config file with valid JSON but with invalid options
     auto testConfigFile = TestUtils::TestConfigFile();
     testConfigFile.changeConfigOptions("use_thread_cap", "true", "max_threads_if_capped", -1,

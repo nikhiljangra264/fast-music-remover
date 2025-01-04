@@ -12,7 +12,7 @@ namespace MediaProcessor::Tests {
 
 fs::path testMediaPath = TEST_MEDIA_DIR;
 
-class AudioProcessorTester : public ::testing::Test {
+class AudioProcessorTest : public ::testing::Test {
    protected:
     fs::path testVideoPath;
     fs::path testAudioProcessedPath;
@@ -45,7 +45,8 @@ class AudioProcessorTester : public ::testing::Test {
 };
 
 // ClassName_MethodName_StateUnderTest_ExpectedBehavior gtest std naming convention
-TEST_F(AudioProcessorTester, IsolateVocals_FiltersAudioCorrectly) {
+// Expected behavior -> Success, Fail, Throw
+TEST_F(AudioProcessorTest, AudioProcessor_isolateVocals_ValidInput_Success) {
     ConfigManager& configManager = ConfigManager::getInstance();
     ASSERT_TRUE(configManager.loadConfig(testConfigFile.getFilePath()))
         << "Unable to Load TestConfigFile";

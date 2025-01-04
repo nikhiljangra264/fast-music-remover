@@ -5,7 +5,7 @@
 namespace MediaProcessor::Testing {
 
 // ClassName_MethodName_StateUnderTest_ExpectedBehavior gtest std naming convention
-TEST(CommandBuilderTest, BuildCommand_ConstructsExpectedCommandString) {
+TEST(CommandBuildingTest, CommandBuilder_build_Constructs_Success) {
     CommandBuilder builder;
     builder.addArgument("arg1");
     builder.addFlag("flag");

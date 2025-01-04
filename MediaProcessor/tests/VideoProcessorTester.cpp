@@ -13,7 +13,7 @@ namespace MediaProcessor::Tests {
 
 fs::path testMediaPath = TEST_MEDIA_DIR;
 
-class VideoProcessorTester : public ::testing::Test {
+class VideoProcessorTest : public ::testing::Test {
    protected:
     fs::path testVideoPath;
     fs::path testAudioPath;
@@ -21,7 +21,7 @@ class VideoProcessorTester : public ::testing::Test {
     TestUtils::TestConfigFile testConfigFile;
     ConfigManager& configManager;
 
-    VideoProcessorTester() : configManager(ConfigManager::getInstance()) {}
+    VideoProcessorTest() : configManager(ConfigManager::getInstance()) {}
 
     void assertFileExists(const fs::path& path) {
         ASSERT_TRUE(fs::exists(path)) << path << " not found.";
@@ -45,7 +45,7 @@ class VideoProcessorTester : public ::testing::Test {
 };
 
 // ClassName_MethodName_StateUnderTest_ExpectedBehavior gtest std naming convention
-TEST_F(VideoProcessorTester, MergeMedia_MergesAudioAndVideoCorrectly) {
+TEST_F(VideoProcessorTest, VideoProcessor_mergeMedia_validInput_Success) {
     /**
      * FIXME: currently only checking for duration here as the filter function
      * is already being checked within the audio tester.

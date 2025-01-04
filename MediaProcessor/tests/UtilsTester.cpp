@@ -7,7 +7,7 @@
 namespace fs = std::filesystem;
 namespace MediaProcessor::Tests {
 
-TEST(UtilsTester, checkPreparedOutputPaths) {
+TEST(UtilsTest, preparedOutputPaths_ValidInput_Success) {
     fs::path videoPath = "/Tests/Video.mp4";
     fs::path expectedVocalsPath = "/Tests/Video_isolated_audio.wav",
              expectedProcessedVideoPath = "/Tests/Video_processed_video.mp4";
@@ -17,7 +17,7 @@ TEST(UtilsTester, checkPreparedOutputPaths) {
     EXPECT_EQ(expectedProcessedVideoPath, outputProcessedVideoPath);
 }
 
-TEST(UtilsTester, EnsureDirectoryExists) {
+TEST(UtilsTester, ensureDirectoryExists_NewDir_Success) {
     fs::path tempPath = fs::temp_directory_path() / "test_dir";
 
     EXPECT_FALSE(fs::exists(tempPath));
@@ -38,7 +38,7 @@ TEST(UtilsTester, trimTrailingSpaces_Success) {
     EXPECT_EQ(inputWithoutTrailingSpace, Utils::trimTrailingSpace(inputWithoutTrailingSpace));
 }
 
-TEST(UtilsTester, runCommand_Success) {
+TEST(UtilsTester, runCommand_ValidCommand_Success) {
     std::string command = "echo \"Hello\"";
     EXPECT_TRUE(Utils::runCommand(command));
 
@@ -47,7 +47,7 @@ TEST(UtilsTester, runCommand_Success) {
     EXPECT_EQ(*output, "Hello\n");
 }
 
-TEST(UtilsTester, runCommand_Fail) {
+TEST(UtilsTester, runCommand_InvalidCommand_Fail) {
     std::string invalid_command = "invalid_command\nanything/@&h";
     EXPECT_FALSE(Utils::runCommand(invalid_command));
 
