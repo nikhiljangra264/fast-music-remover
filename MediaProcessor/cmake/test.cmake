@@ -94,6 +94,7 @@ add_test_executable(VideoProcessorTester
 add_test_executable(CommandBuilderTester
     ${CMAKE_SOURCE_DIR}/tests/CommandBuilderTester.cpp 
     ${CMAKE_SOURCE_DIR}/src/CommandBuilder.cpp 
+    ${CMAKE_SOURCE_DIR}/src/DeepFilterCommandBuilder.cpp
     ${CMAKE_SOURCE_DIR}/src/Utils.cpp
 )
 
