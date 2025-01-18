@@ -537,7 +537,7 @@ def main():
     parser.add_argument("--log-file", action="store_true", help="Outputs log in a log file.")
     args = parser.parse_args()
 
-    print('Setting up....')
+    print("Setting up....")
 
     system = platform.system()
     if args.app == "none":
