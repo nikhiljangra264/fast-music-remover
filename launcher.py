@@ -439,6 +439,14 @@ def build_processing_engine(system, re_build=False):
 
 class WebApplication:
     def __init__(self, system: str, log_level: str, log_file: bool = False):
+
+        # FIXME: ConfigManager is not initialized yet so logging is not setup.
+        #        Following log statements to be swapped once this is fixed.
+        # logging.info("Setting up Web Application. This will resolve all dependencies, and may take a few minutes.")
+        # logging.info("Run with `--log-level DEBUG` for more detailed output.")
+        print("Setting up Web Application. This will resolve all dependencies, and may take a few minutes.")
+        print("Run with `--log-level DEBUG` for more detailed output.")
+
         self.dependencies = [
             DependencyHandler("cmake", {"Windows": "mingw-w64-x86_64-cmake"}, {"all": ["cmake --version"]}),
             DependencyHandler(
@@ -478,6 +486,11 @@ class WebApplication:
         """
         Installs the dependencies and Setup Configuration for the web application.
         """
+
+        """ FIXME: Common dependencies shouldn't be resolved here. 
+                   This should be exclusive to the WebApplication class dependencies.
+        """
+
         self.config = ConfigManager(self.system, log_level, log_file)
         for dependency in self.dependencies:
             dependency.ensure_installed(self.system)
@@ -537,13 +550,19 @@ def main():
     parser.add_argument("--log-file", action="store_true", help="Outputs log in a log file.")
     args = parser.parse_args()
 
-    print("Setting up....")
+    """ FIXME: Control flow should be more transparent.
+               It's unclear where dependencies are resolved (currently delegated to WebApplication).
+               Similar to building the core, resolving common dependencies should be explicit.
+               Consider adding init/cleanup functions to fix these without cluttering main.
+    """
 
     system = platform.system()
     if args.app == "none":
         print("Please specify a launch option, e.g. `--app=web`. Start with `--help` to see all options.")
         sys.exit(0)
 
+    # FIXME: App starts before ConfigManager is initialized leading to limited intermediary logging capability.
+    # To be handled separately likely in the to-be-added init function.
     app = Applications[args.app](system, args.log_level, args.log_file)
     build_processing_engine(system, args.rebuild)
     if args.install_only:
